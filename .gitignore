@@ -27,3 +27,7 @@
 *.exe
 *.out
 *.app
+/x64/Debug
+/GeneratedFiles
+/bracket-turntable.VC.db
+/bracket-turntable.VC.VC.opendb
