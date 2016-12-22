@@ -1,4 +1,5 @@
 <RCC>
-    <qresource prefix="MyClass">
+    <qresource prefix="/MyClass">
+        <file>resource/style/about_textBrowser.qss</file>
     </qresource>
 </RCC>
