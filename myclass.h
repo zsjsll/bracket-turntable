@@ -9,6 +9,8 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include <QDebug>
+#include <QGraphicsEffect>
+#include <QPropertyAnimation>
 
 
 class MyClass : public QMainWindow

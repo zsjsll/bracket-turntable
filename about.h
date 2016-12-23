@@ -18,6 +18,10 @@ public:
 
 private:
 	Ui::about ui;
+
+	private slots:
+
+	void pushButtonSlot();
 	
 };
 

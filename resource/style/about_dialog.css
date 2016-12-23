@@ -1,5 +1,27 @@
+QPushButton{
+border:1px solid rgba(0,0,0,25%);
+color:rgba(0,0,0,70%);
+border-radius:8px;
+background-color:rgba(0,0,0,20%);
+}
+
+
+QPushButton:hover{
+border:1px solid rgba(0,0,0,50%);
+color:rgba(0,0,0,90%);
+border-radius:8px;
+background-color:rgba(0,0,0,15%);
+}
+
+
+QDialog{
+background-color:rgb(237,232,228);
+border:1px solid #0078D7
+}
+
+
 QTextBrowser{
-background-color:#EDE8E4;
+background-color:rgb(237,232,228);
 border-style:hidden;
 }
 

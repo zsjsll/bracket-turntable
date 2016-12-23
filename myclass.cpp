@@ -4,6 +4,12 @@ MyClass::MyClass(QWidget* parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	
+
+	QFile file(":/MyClass/resource/style/main.css");
+	file.open(QFile::ReadOnly);
+	this->setStyleSheet(file.readAll());
+	
 
 	Qt::WindowFlags flags = Qt::Dialog;
 	flags |= Qt::WindowCloseButtonHint;
@@ -17,6 +23,8 @@ MyClass::MyClass(QWidget* parent)
 	this->connect(this->ui.actionAbout, SIGNAL(triggered()), this, SLOT(aboutSlot()));
 	this->connect(this->ui.actionHelp, SIGNAL(triggered()), this, SLOT(helpSlot()));
 	this->connect(this->ui.actionConnect, SIGNAL(triggered()), this, SLOT(connectSlot()));
+
+
 
 	
 	
@@ -51,6 +59,21 @@ void MyClass::aboutSlot()
 {
 	about_->setModal(true);
 	about_->show();
+	
+	
+
+	QGraphicsOpacityEffect *eff = new QGraphicsOpacityEffect(this);
+	about_->setGraphicsEffect(eff);
+	QPropertyAnimation *accc = new QPropertyAnimation(eff, "opacity");
+	accc->setStartValue(0);
+	accc->setEndValue(1);
+	accc->setDuration(35000);
+	accc->start(QPropertyAnimation::DeleteWhenStopped);
+
+
+
+
+	
 }
 
 void MyClass::connectSlot()

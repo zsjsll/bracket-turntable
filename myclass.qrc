@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/MyClass">
-        <file>resource/style/about_textBrowser.qss</file>
+        <file>resource/style/about_dialog.css</file>
+        <file>resource/text/about.html</file>
+        <file>resource/style/main.css</file>
     </qresource>
 </RCC>
