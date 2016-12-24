@@ -45,6 +45,7 @@
      <string>帮助(&amp;H)</string>
     </property>
     <addaction name="actionUpgrade"/>
+    <addaction name="actionStatement"/>
     <addaction name="actionAbout"/>
     <addaction name="actionHelp"/>
     <addaction name="actionWeb"/>
@@ -58,7 +59,7 @@
    </widget>
    <widget class="QMenu" name="menu_S">
     <property name="title">
-     <string>选项(&amp;S)</string>
+     <string>选项(&amp;Q)</string>
     </property>
     <addaction name="actionConfig"/>
    </widget>
@@ -167,6 +168,11 @@
   <action name="actionConfig">
    <property name="text">
     <string>设置</string>
+   </property>
+  </action>
+  <action name="actionStatement">
+   <property name="text">
+    <string>声明(&amp;S)</string>
    </property>
   </action>
  </widget>

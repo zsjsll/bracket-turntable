@@ -1,11 +1,12 @@
 #include "about.h"
+#include <ctime>
 
 
 about::about(QWidget* parent)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
-
+	
 
 	Qt::WindowFlags flags = Qt::Dialog;
 	//flags |= Qt::WindowCloseButtonHint;
@@ -46,10 +47,11 @@ about::about(QWidget* parent)
 
 about::~about()
 {
+
 }
 
 void about::pushButtonSlot()
 {
-	this->close();
-
+	animation_->opacityStyle(this, false);
+	
 }

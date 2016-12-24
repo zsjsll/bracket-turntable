@@ -1,5 +1,6 @@
 #include "myclass.h"
 
+
 MyClass::MyClass(QWidget* parent)
 	: QMainWindow(parent)
 {
@@ -23,6 +24,7 @@ MyClass::MyClass(QWidget* parent)
 	this->connect(this->ui.actionAbout, SIGNAL(triggered()), this, SLOT(aboutSlot()));
 	this->connect(this->ui.actionHelp, SIGNAL(triggered()), this, SLOT(helpSlot()));
 	this->connect(this->ui.actionConnect, SIGNAL(triggered()), this, SLOT(connectSlot()));
+	this->connect(this->ui.actionStatement, SIGNAL(triggered()), this, SLOT(statementSlot()));
 
 
 
@@ -49,6 +51,7 @@ void MyClass::upgradeSlot()
 {
 	upgrade_->setModal(true);
 	upgrade_->show();
+	animation_->opacityStyle(upgrade_, true);
 }
 
 void MyClass::helpSlot()
@@ -59,25 +62,21 @@ void MyClass::aboutSlot()
 {
 	about_->setModal(true);
 	about_->show();
+	animation_->opacityStyle(about_,true);
 	
-	
+}
 
-	QGraphicsOpacityEffect *eff = new QGraphicsOpacityEffect(this);
-	about_->setGraphicsEffect(eff);
-	QPropertyAnimation *accc = new QPropertyAnimation(eff, "opacity");
-	accc->setStartValue(0);
-	accc->setEndValue(1);
-	accc->setDuration(35000);
-	accc->start(QPropertyAnimation::DeleteWhenStopped);
+void MyClass::statementSlot()
+{
+	statement_->setModal(true);
+	statement_->show();
+	animation_->opacityStyle(statement_, true);
 
-
-
-
-	
 }
 
 void MyClass::connectSlot()
 {
 	conn_->setModal(true);
 	conn_->show();
+
 }

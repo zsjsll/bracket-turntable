@@ -4,6 +4,8 @@
 #include <QDialog>
 #include "ui_about.h"
 #include <QFile>
+#include "animation.h"
+#include <QThread>
 
 
 class about : public QDialog
@@ -14,12 +16,15 @@ public:
 	about(QWidget *parent = 0);
 	int upgrade(QWidget* parent = 0);
 	~about();
+
+
 	
 
 private:
 	Ui::about ui;
+	animation *animation_ = new animation(this);
 
-	private slots:
+private slots:
 
 	void pushButtonSlot();
 	
