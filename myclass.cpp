@@ -13,9 +13,10 @@ MyClass::MyClass(QWidget* parent)
 	
 
 	Qt::WindowFlags flags = Qt::Dialog;
-	flags |= Qt::WindowCloseButtonHint;
-	flags |= Qt::WindowMinimizeButtonHint;
-	//flags |= Qt::WindowMaximizeButtonHint;
+	//flags |= Qt::WindowCloseButtonHint;
+	//flags |= Qt::WindowMinimizeButtonHint;
+	//flags |= Qt::WindowCloseButtonHint;
+	flags |= Qt::FramelessWindowHint;
 	setWindowFlags(flags);
 	
 	this->setWindowTitle("alpha v1.0");
@@ -66,13 +67,7 @@ void MyClass::aboutSlot()
 	
 }
 
-void MyClass::statementSlot()
-{
-	statement_->setModal(true);
-	statement_->show();
-	animation_->opacityStyle(statement_, true);
 
-}
 
 void MyClass::connectSlot()
 {

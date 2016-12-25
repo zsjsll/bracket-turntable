@@ -86,15 +86,6 @@
     <ClCompile Include="GeneratedFiles\Release\moc_animation.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="statement.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_statement.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_statement.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="myclass.h">
@@ -127,12 +118,6 @@
     <CustomBuild Include="animation.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="statement.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="statement.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_myclass.h">
@@ -145,9 +130,6 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_conn.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_statement.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

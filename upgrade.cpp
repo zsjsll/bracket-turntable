@@ -25,10 +25,13 @@ upgrade::upgrade(QWidget* parent)
 	auto pushButton_pos_width = x / 2-ui.pushButton->width()/2;
 	ui.pushButton->move(pushButton_pos_width,y-40);
 
-	//	填充内容：
+//	填充内容：
 	ui.textBrowser->setText("更新说明");
 
-	
+//	槽：
+
+	this->connect(this->ui.pushButton, SIGNAL(clicked()), this, SLOT(pushButtonSlot()));
+
 	
 }
 
@@ -36,3 +39,8 @@ upgrade::~upgrade()
 {
 }
 
+void upgrade::pushButtonSlot()
+{
+	animation_->opacityStyle(this, false);
+
+}
