@@ -6,31 +6,45 @@ MyClass::MyClass(QWidget* parent)
 {
 	ui.setupUi(this);
 	
-
+//	加载界面配置文件：
 	QFile file(":/MyClass/resource/style/main.css");
 	file.open(QFile::ReadOnly);
 	this->setStyleSheet(file.readAll());
 	
-
+//	标题：
 	Qt::WindowFlags flags = Qt::Dialog;
+	flags |= Qt::WindowCloseButtonHint;
+	flags |= Qt::WindowMinimizeButtonHint;
 	//flags |= Qt::WindowCloseButtonHint;
-	//flags |= Qt::WindowMinimizeButtonHint;
-	//flags |= Qt::WindowCloseButtonHint;
-	flags |= Qt::FramelessWindowHint;
+	//flags |= Qt::FramelessWindowHint;
 	setWindowFlags(flags);
 	
+	//this->setAttribute(Qt::WA_TranslucentBackground);
+	
+//	信号与槽：
 	this->setWindowTitle("alpha v1.0");
 	this->connect(this->ui.actionWeb, SIGNAL(triggered()), this, SLOT(WebSlot()));
 	this->connect(this->ui.actionUpgrade, SIGNAL(triggered()), this, SLOT(upgradeSlot()));
 	this->connect(this->ui.actionAbout, SIGNAL(triggered()), this, SLOT(aboutSlot()));
 	this->connect(this->ui.actionHelp, SIGNAL(triggered()), this, SLOT(helpSlot()));
 	this->connect(this->ui.actionConnect, SIGNAL(triggered()), this, SLOT(connectSlot()));
-	this->connect(this->ui.actionStatement, SIGNAL(triggered()), this, SLOT(statementSlot()));
-
-
-
 	
+
+//	界面重写：
+	ui.menuBar->move(0,0);
+	setMinimumSize(1024,768);
+	setMaximumSize(1024, 768);
+	ui.statusBar->hide();
 	
+
+	splashscreen* splashscreen_ = new splashscreen(this);
+	QThread* thread = new QThread(this);
+	splashscreen_->moveToThread(thread);
+	thread->start();
+	connect(thread, SIGNAL(started()), splashscreen_, SLOT(show()), Qt::QueuedConnection);
+	
+
+	qDebug() << "GUI的thread" << QThread::currentThreadId();
 }
 
 

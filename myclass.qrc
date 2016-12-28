@@ -3,5 +3,7 @@
         <file>resource/style/about_dialog.css</file>
         <file>resource/text/about.html</file>
         <file>resource/style/main.css</file>
+        <file>resource/img/2.gif</file>
+        <file>resource/img/1234.png</file>
     </qresource>
 </RCC>

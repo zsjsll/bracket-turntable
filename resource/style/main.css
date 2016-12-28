@@ -12,12 +12,23 @@ color:rgba(0,0,0,90%);
 border-radius:8px;
 background-color:rgba(0,0,0,15%);
 }
-
+/*
 QMainWindow{
 background-color:rgb(38,47,64);
 border:1px solid rgb(0,0,0);
 }
 
-QMenuBar{
-background-color:rgb(38,47,64);
+
+
+QToolBar{
+	border:0px solid;
+	
 }
+
+QStatusBar {
+    border: 0px solid;
+}
+
+QStatusBar::item {
+    border: 0px
+}*/

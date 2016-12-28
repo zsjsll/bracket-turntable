@@ -12,7 +12,7 @@
 #include <QDebug>
 #include <QGraphicsEffect>
 #include <QPropertyAnimation>
-
+#include "splashscreen.h"
 
 class MyClass : public QMainWindow
 {
@@ -28,6 +28,7 @@ private:
 	about* about_ = new about(this);
 	conn* conn_ = new conn(this);
 	animation* animation_ = new animation(this);
+	
 	
 
 

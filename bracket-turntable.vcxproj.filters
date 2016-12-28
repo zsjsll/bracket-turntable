@@ -86,6 +86,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_animation.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="splashscreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_splashscreen.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_splashscreen.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="myclass.h">
@@ -118,6 +127,9 @@
     <CustomBuild Include="animation.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="splashscreen.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_myclass.h">
@@ -132,5 +144,13 @@
     <ClInclude Include="GeneratedFiles\ui_conn.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resource\style\about_dialog.css">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="resource\style\main.css">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
