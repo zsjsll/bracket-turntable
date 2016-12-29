@@ -11,16 +11,17 @@ splashscreen::~splashscreen()
 {
 	delete label;
 	delete movie;
+
 }
 
-void splashscreen::show(int time)
+void splashscreen::show(int msec)
 {
 	
 	label = new QLabel("",nullptr);
 	movie = new QMovie(":/MyClass/resource/img/2.gif");
-	timer = new QTimer(this);
-	QTimer *mainShowTimer = new QTimer(this);
-
+	
+	
+	
 	Qt::WindowFlags flags = Qt::Dialog;
 	flags |= Qt::FramelessWindowHint;
 	flags |= Qt::Tool;
@@ -30,16 +31,14 @@ void splashscreen::show(int time)
 	label->setScaledContents(true);
 	movie->start();
 	label->show();
-	timer->start(time);
-	mainShowTimer->start(time+300);
-	connect(timer, &QTimer::timeout, this->label, &QLabel::close);
 	
-	connect(mainShowTimer, &QTimer::timeout, this,&splashscreen::mainShow);
+
+	QTimer::singleShot(msec, this->label, &QLabel::close);
+	
+	QEventLoop eventloop;
+	QTimer::singleShot(msec+300, &eventloop, &QEventLoop::quit);
+	eventloop.exec();
 	
 }
 
-void splashscreen::mainShow()
-{
-	
-}
 

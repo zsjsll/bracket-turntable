@@ -1,7 +1,5 @@
 #include "animation.h"
 #include <bitset>
-#include <QSize>
-#include <QRect>
 
 
 animation::animation(QObject* parent)
@@ -13,23 +11,28 @@ animation::~animation()
 {
 }
 
-void animation::opacityStyle(QObject* p, bool isIn)
+
+
+void animation::opacityStyle(QObject* p, const Enum_Mode& status, int msec)
 {
-	a = new QPropertyAnimation(p, "windowOpacity");
-	a->setDuration(200);
-	if (isIn)
+	a = new QPropertyAnimation(p, "windowOpacity", this);
+	a->setDuration(msec);
+
+	switch (status)
 	{
+	case Enum_Mode::Open:
 		a->setStartValue(0);
 		a->setEndValue(1);
 		a->setEasingCurve(QEasingCurve::InQuad);
 		a->start(QPropertyAnimation::DeleteWhenStopped);
-	}
-	else
-	{
+		break;
+	case Enum_Mode::Close:
 		a->setStartValue(1);
 		a->setEndValue(0);
 		a->setEasingCurve(QEasingCurve::OutQuad);
 		a->start(QPropertyAnimation::DeleteWhenStopped);
 		p->connect(this->a, SIGNAL(finished()), p, SLOT(close()));
+		break;
+	default: break;
 	}
 }

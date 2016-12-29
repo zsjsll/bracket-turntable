@@ -12,6 +12,10 @@
 #include <QDebug>
 #include <QGraphicsEffect>
 #include <QPropertyAnimation>
+#include <QTimer>
+#include "splashscreen.h"
+#include <QCloseEvent>
+
 
 
 class MyClass : public QMainWindow
@@ -23,6 +27,8 @@ class MyClass : public QMainWindow
 public:
 	MyClass(QWidget* parent = 0);
 	~MyClass();
+
+	void windowShow();
 	
 private:
 	Ui::MyClassClass ui;
@@ -30,9 +36,12 @@ private:
 	about* about_ = new about(this);
 	conn* conn_ = new conn(this);
 	animation* animation_ = new animation(this);
-	
+	splashscreen* splashscreen_ = new splashscreen(this);
 	
 
+protected:
+	void closeEvent(QCloseEvent *e);
+	
 
 private slots:
 	void WebSlot();

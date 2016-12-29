@@ -6,29 +6,29 @@
 #include <QLabel>
 #include <QDebug>
 #include <QTimer>
-#include <myclass.h>
-
+#include "animation.h"
+#include <QEventLoop>
 
 class splashscreen : public QObject
 {
 	Q_OBJECT
 
 public:
-	splashscreen(QObject *parent);
+	splashscreen(QObject *parent=0);
 	~splashscreen();
 	
-	void show(int time);
+	void show(int msec);
+
+	
 
 private:
 	QMovie* movie;
 	QLabel* label;
-	int time;
-	QTimer* timer;
-	MyClass *w=new MyClass;
-	
+	int msec1;
+	animation* animation_ = new animation(this);
+		
+public slots:
 
-private slots:
-	void mainShow();
 	
 	
 };

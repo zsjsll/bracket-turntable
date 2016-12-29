@@ -18,14 +18,11 @@ public:
 
 private:
 	Ui::upgrade ui;
-	animation *animation_ = new animation(this);
+	animation* animation_ = new animation(this);
 
 private slots:
 
 	void pushButtonSlot();
-
-
-
 };
 
 #endif // UPGRADE_H

@@ -9,7 +9,7 @@ upgrade::upgrade(QWidget* parent)
 	//flags |= Qt::WindowCloseButtonHint;
 	flags |= Qt::FramelessWindowHint;
 	setWindowFlags(flags);
-	
+
 	this->setWindowTitle("更新说明");
 
 	QFile file(":/MyClass/resource/style/about_dialog.css");
@@ -21,18 +21,16 @@ upgrade::upgrade(QWidget* parent)
 	ui.textBrowser->resize(x - 20, 200);
 	ui.textBrowser->move(10, 60);
 
-//	确定‘关闭按钮’在中间位置：
-	auto pushButton_pos_width = x / 2-ui.pushButton->width()/2;
-	ui.pushButton->move(pushButton_pos_width,y-40);
+	//	确定‘关闭按钮’在中间位置：
+	auto pushButton_pos_width = x / 2 - ui.pushButton->width() / 2;
+	ui.pushButton->move(pushButton_pos_width, y - 40);
 
-//	填充内容：
+	//	填充内容：
 	ui.textBrowser->setText("更新说明");
 
-//	槽：
+	//	槽：
 
 	this->connect(this->ui.pushButton, SIGNAL(clicked()), this, SLOT(pushButtonSlot()));
-
-	
 }
 
 upgrade::~upgrade()
@@ -41,6 +39,5 @@ upgrade::~upgrade()
 
 void upgrade::pushButtonSlot()
 {
-	animation_->opacityStyle(this, false);
-
+	animation_->opacityStyle(this, animation::Enum_Mode::Close);
 }
