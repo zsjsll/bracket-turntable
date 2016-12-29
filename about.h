@@ -6,6 +6,8 @@
 #include <QFile>
 #include "animation.h"
 #include <QThread>
+#include <QDebug>
+
 
 
 class about : public QDialog
@@ -14,7 +16,7 @@ class about : public QDialog
 
 public:
 	about(QWidget *parent = 0);
-	int upgrade(QWidget* parent = 0);
+	
 	~about();
 
 

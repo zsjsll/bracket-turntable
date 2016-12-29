@@ -1,11 +1,15 @@
 #include "myclass.h"
 
 
+
 MyClass::MyClass(QWidget* parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
 	
+	
+
+
 //	加载界面配置文件：
 	QFile file(":/MyClass/resource/style/main.css");
 	file.open(QFile::ReadOnly);
@@ -28,8 +32,9 @@ MyClass::MyClass(QWidget* parent)
 	this->connect(this->ui.actionAbout, SIGNAL(triggered()), this, SLOT(aboutSlot()));
 	this->connect(this->ui.actionHelp, SIGNAL(triggered()), this, SLOT(helpSlot()));
 	this->connect(this->ui.actionConnect, SIGNAL(triggered()), this, SLOT(connectSlot()));
-	
 
+	//this->connect(this->ui.pushButton, SIGNAL(clicked()), this, SLOT(QPushButtonSlot()));
+	
 //	界面重写：
 	ui.menuBar->move(0,0);
 	setMinimumSize(1024,768);
@@ -37,14 +42,11 @@ MyClass::MyClass(QWidget* parent)
 	ui.statusBar->hide();
 	
 
-	splashscreen* splashscreen_ = new splashscreen(this);
-	QThread* thread = new QThread(this);
-	splashscreen_->moveToThread(thread);
-	thread->start();
-	connect(thread, SIGNAL(started()), splashscreen_, SLOT(show()), Qt::QueuedConnection);
+	
+	
+	
 	
 
-	qDebug() << "GUI的thread" << QThread::currentThreadId();
 }
 
 
@@ -88,4 +90,9 @@ void MyClass::connectSlot()
 	conn_->setModal(true);
 	conn_->show();
 
+}
+
+void MyClass::QPushButtonSlot()
+{
+	
 }

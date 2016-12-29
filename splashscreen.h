@@ -4,8 +4,10 @@
 #include <QObject>
 #include <QMovie>
 #include <QLabel>
-#include <QThread>
 #include <QDebug>
+#include <QTimer>
+#include <myclass.h>
+
 
 class splashscreen : public QObject
 {
@@ -14,13 +16,21 @@ class splashscreen : public QObject
 public:
 	splashscreen(QObject *parent);
 	~splashscreen();
-	splashscreen();
-
+	
+	void show(int time);
 
 private:
+	QMovie* movie;
+	QLabel* label;
+	int time;
+	QTimer* timer;
+	MyClass *w=new MyClass;
+	
 
-	private slots :
-		void show();
+private slots:
+	void mainShow();
+	
+	
 };
 
 #endif // SPLASHSCREEN_H

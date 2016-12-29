@@ -1,11 +1,8 @@
 #include "myclass.h"
 #include <QtWidgets/QApplication>
 #include <QSplashScreen>
-#include <QPixmap>
-#include <QThread>
-#include <QMovie>
-#include <QLabel>
 #include "splashscreen.h"
+#include "animation.h"
 
 
 int main(int argc, char* argv[])
@@ -15,8 +12,6 @@ int main(int argc, char* argv[])
 
 
 	/*œ‘ æ∂ØÃ¨Õº∆¨*/
-
-
 //	QMovie* movie;
 //	movie = new QMovie(":/MyClass/resource/img/2.gif");
 //	QLabel*label = new QLabel("");
@@ -30,21 +25,15 @@ int main(int argc, char* argv[])
 //	label->setScaledContents(true);
 //	movie->start();
 //	label->show();
-	
-
+	splashscreen splashscreen_(&w);
+	animation* animation_ = new animation(&w);
+	splashscreen_.show(1700);
 	
 	
 	w.show();
+	animation_->opacityStyle(&w, true);
+	
 
-
-
-	/*œ‘ ææ≤Ã¨Õº∆¨*/
-//	QPixmap pixmap(":/MyClass/resource/img/2.gif");
-//	QSplashScreen splash(pixmap);
-//	splash.show();
-//	QThread::msleep(5000);		
-//	w.show();
-//	splash.finish(&w);
 	
 	return a.exec();
 }

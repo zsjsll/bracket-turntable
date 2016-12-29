@@ -3,24 +3,23 @@
 splashscreen::splashscreen(QObject *parent)
 	: QObject(parent)
 {
-
+	
+	
 }
 
 splashscreen::~splashscreen()
 {
-
+	delete label;
+	delete movie;
 }
 
-splashscreen::splashscreen()
+void splashscreen::show(int time)
 {
-}
-
-
-void splashscreen::show()
-{
-	QMovie* movie;
-	QLabel* label = new QLabel("", 0);
+	
+	label = new QLabel("",nullptr);
 	movie = new QMovie(":/MyClass/resource/img/2.gif");
+	timer = new QTimer(this);
+	QTimer *mainShowTimer = new QTimer(this);
 
 	Qt::WindowFlags flags = Qt::Dialog;
 	flags |= Qt::FramelessWindowHint;
@@ -31,5 +30,16 @@ void splashscreen::show()
 	label->setScaledContents(true);
 	movie->start();
 	label->show();
-	qDebug() << "现在使用的thread" << QThread::currentThreadId();
+	timer->start(time);
+	mainShowTimer->start(time+300);
+	connect(timer, &QTimer::timeout, this->label, &QLabel::close);
+	
+	connect(mainShowTimer, &QTimer::timeout, this,&splashscreen::mainShow);
+	
 }
+
+void splashscreen::mainShow()
+{
+	
+}
+

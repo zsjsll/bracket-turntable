@@ -12,16 +12,18 @@
 #include <QDebug>
 #include <QGraphicsEffect>
 #include <QPropertyAnimation>
-#include "splashscreen.h"
+
 
 class MyClass : public QMainWindow
 {
 	Q_OBJECT
 
+		
+
 public:
 	MyClass(QWidget* parent = 0);
 	~MyClass();
-
+	
 private:
 	Ui::MyClassClass ui;
 	upgrade* upgrade_ = new upgrade(this);
@@ -32,13 +34,14 @@ private:
 	
 
 
-
 private slots:
 	void WebSlot();
 	void upgradeSlot();
 	void helpSlot();
 	void aboutSlot();
 	void connectSlot();
+
+	void QPushButtonSlot();
 	
 };
 
