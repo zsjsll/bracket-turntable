@@ -30,7 +30,7 @@ MyClass::MyClass(QWidget* parent)
 	this->connect(this->ui.actionHelp, SIGNAL(triggered()), this, SLOT(helpSlot()));
 	this->connect(this->ui.actionConnect, SIGNAL(triggered()), this, SLOT(connectSlot()));
 
-	//this->connect(this->ui.pushButton, SIGNAL(clicked()), this, SLOT(QPushButtonSlot()));
+	this->connect(this->ui.pushButton, SIGNAL(clicked()), this, SLOT(QPushButtonSlot()));
 
 	//	界面重写：
 	ui.menuBar->move(0, 0);
@@ -49,7 +49,6 @@ MyClass::~MyClass()
 void MyClass::windowShow()
 {
 	splashscreen_->show(1700);
-
 	this->show();
 	animation_->opacityStyle(this, animation::Enum_Mode::Open);
 }
@@ -58,10 +57,9 @@ void MyClass::windowShow()
 void MyClass::closeEvent(QCloseEvent* e)
 {
 	animation_->opacityStyle(this, animation::Enum_Mode::Close, 1000);
-	QEventLoop event_loop;
-	QTimer::singleShot(800, &event_loop, &QEventLoop::quit);
-	event_loop.exec();
+	splashscreen::sleep(1000);
 	e->accept();
+	
 }
 
 void MyClass::WebSlot()
@@ -80,6 +78,7 @@ void MyClass::upgradeSlot()
 
 void MyClass::helpSlot()
 {
+
 }
 
 void MyClass::aboutSlot()
@@ -98,4 +97,6 @@ void MyClass::connectSlot()
 
 void MyClass::QPushButtonSlot()
 {
+	
+
 }

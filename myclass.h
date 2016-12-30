@@ -38,6 +38,7 @@ private:
 	animation* animation_ = new animation(this);
 	splashscreen* splashscreen_ = new splashscreen(this);
 	
+	int tab;
 
 protected:
 	void closeEvent(QCloseEvent *e);
@@ -50,6 +51,7 @@ private slots:
 	void aboutSlot();
 	void connectSlot();
 
+	
 	void QPushButtonSlot();
 	
 };

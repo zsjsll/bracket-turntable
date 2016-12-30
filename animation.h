@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QPropertyAnimation>
+#include <QDialog>
 
 
 
@@ -14,19 +15,20 @@ public:
 	animation(QObject *parent);
 	~animation();
 	
-	enum class Enum_Mode
+	const enum class Enum_Mode
 	{
 		Open = 0,
 		Close,
 	};
 	
- 	int tab;
 
-	void opacityStyle(QObject* p,const Enum_Mode&,int msec = 300 );
+
+	void opacityStyle(QWidget* p,const Enum_Mode&,int msec = 300 );
 
 private:
-	QPropertyAnimation *a;
+	QPropertyAnimation *propertyAnimation;
 
+	int tab;
 	
 	
 };

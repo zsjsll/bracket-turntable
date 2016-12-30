@@ -14,23 +14,21 @@ class splashscreen : public QObject
 	Q_OBJECT
 
 public:
-	splashscreen(QObject *parent=0);
+	splashscreen(QObject* parent = 0);
 	~splashscreen();
-	
+
 	void show(int msec);
 
-	
+	static void sleep(const int& msec);
+
 
 private:
 	QMovie* movie;
 	QLabel* label;
-	int msec1;
 	animation* animation_ = new animation(this);
-		
-public slots:
+	
 
-	
-	
+public slots:
 };
 
 #endif // SPLASHSCREEN_H

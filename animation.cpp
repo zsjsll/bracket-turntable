@@ -1,5 +1,6 @@
 #include "animation.h"
 #include <bitset>
+#include <QWidget>
 
 
 animation::animation(QObject* parent)
@@ -13,25 +14,24 @@ animation::~animation()
 
 
 
-void animation::opacityStyle(QObject* p, const Enum_Mode& status, int msec)
+void animation::opacityStyle(QWidget* p, const Enum_Mode& status, int msec)
 {
-	a = new QPropertyAnimation(p, "windowOpacity", this);
-	a->setDuration(msec);
+	propertyAnimation = new QPropertyAnimation(p, "windowOpacity", this);
+	propertyAnimation->setDuration(msec);
 
 	switch (status)
 	{
 	case Enum_Mode::Open:
-		a->setStartValue(0);
-		a->setEndValue(1);
-		a->setEasingCurve(QEasingCurve::InQuad);
-		a->start(QPropertyAnimation::DeleteWhenStopped);
+		propertyAnimation->setStartValue(0);
+		propertyAnimation->setEndValue(1);
+		propertyAnimation->setEasingCurve(QEasingCurve::InQuad);
+		propertyAnimation->start(QPropertyAnimation::DeleteWhenStopped);
 		break;
 	case Enum_Mode::Close:
-		a->setStartValue(1);
-		a->setEndValue(0);
-		a->setEasingCurve(QEasingCurve::OutQuad);
-		a->start(QPropertyAnimation::DeleteWhenStopped);
-		p->connect(this->a, SIGNAL(finished()), p, SLOT(close()));
+		propertyAnimation->setEndValue(0);
+		propertyAnimation->setEasingCurve(QEasingCurve::OutQuad);
+		propertyAnimation->start(QPropertyAnimation::DeleteWhenStopped);
+		p->connect(propertyAnimation, &QPropertyAnimation::finished, p, &QDialog::close);
 		break;
 	default: break;
 	}

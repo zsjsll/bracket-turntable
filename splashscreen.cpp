@@ -3,8 +3,6 @@
 splashscreen::splashscreen(QObject *parent)
 	: QObject(parent)
 {
-	
-	
 }
 
 splashscreen::~splashscreen()
@@ -35,8 +33,17 @@ void splashscreen::show(int msec)
 
 	QTimer::singleShot(msec, this->label, &QLabel::close);
 	
+	this->sleep(msec+300);
+	
+}
+
+
+
+void splashscreen::sleep(const int& msec)
+{
+	
 	QEventLoop eventloop;
-	QTimer::singleShot(msec+300, &eventloop, &QEventLoop::quit);
+	QTimer::singleShot(msec, &eventloop, &QEventLoop::quit);
 	eventloop.exec();
 	
 }
