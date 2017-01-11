@@ -15,8 +15,9 @@
 #include <QTimer>
 #include "splashscreen.h"
 #include <QCloseEvent>
-
-
+#include <QtSerialPort/QtSerialPort>  
+#include <QtSerialPort/QSerialPortInfo> 
+#include <QMessageBox>
 
 class MyClass : public QMainWindow
 {
@@ -29,16 +30,20 @@ public:
 	~MyClass();
 
 	void windowShow();
-	
+	void autoConnect();
 private:
 	Ui::MyClassClass ui;
-	upgrade* upgrade_ = new upgrade(this);
-	about* about_ = new about(this);
-	conn* conn_ = new conn(this);
-	animation* animation_ = new animation(this);
-	splashscreen* splashscreen_ = new splashscreen(this);
+	upgrade* upgrade_ = new upgrade(this); //窗口
+	about* about_ = new about(this); //窗口
+	conn* conn_ = new conn(this); //连接窗口 现在没有用到
+	animation* animation_ = new animation(this); //动画
+	splashscreen* splashscreen_ = new splashscreen(this); //弹窗动画
 	
-	int tab;
+	QSerialPortInfo comInfo; //串口信息
+	QSerialPort com; //确定串口
+
+	QTimer* timer_ = new QTimer(this);//关于自动连接的计时器
+
 
 protected:
 	void closeEvent(QCloseEvent *e);
@@ -50,7 +55,7 @@ private slots:
 	void helpSlot();
 	void aboutSlot();
 	void connectSlot();
-
+	void outSlot();
 	
 	void QPushButtonSlot();
 	

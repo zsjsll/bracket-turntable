@@ -23,20 +23,28 @@ MyClass::MyClass(QWidget* parent)
 	//this->setAttribute(Qt::WA_TranslucentBackground);
 
 	//	信号与槽：
-	this->setWindowTitle("alpha v1.0");
-	this->connect(this->ui.actionWeb, SIGNAL(triggered()), this, SLOT(WebSlot()));
-	this->connect(this->ui.actionUpgrade, SIGNAL(triggered()), this, SLOT(upgradeSlot()));
-	this->connect(this->ui.actionAbout, SIGNAL(triggered()), this, SLOT(aboutSlot()));
-	this->connect(this->ui.actionHelp, SIGNAL(triggered()), this, SLOT(helpSlot()));
-	this->connect(this->ui.actionConnect, SIGNAL(triggered()), this, SLOT(connectSlot()));
+	//菜单：
+	this->connect(ui.actionWeb, &QAction::triggered, this, &MyClass::WebSlot);
+	this->connect(ui.actionUpgrade, &QAction::triggered, this, &MyClass::upgradeSlot);
+	this->connect(ui.actionAbout, &QAction::triggered, this, &MyClass::aboutSlot);
+	this->connect(ui.actionHelp, &QAction::triggered, this, &MyClass::helpSlot);
+	this->connect(ui.actionConnect, &QAction::triggered, this, &MyClass::connectSlot);
+	this->connect(ui.actionOut, &QAction::triggered, this, &MyClass::outSlot);
 
+	//按键：
 	this->connect(this->ui.pushButton, SIGNAL(clicked()), this, SLOT(QPushButtonSlot()));
 
 	//	界面重写：
+	this->setWindowTitle("alpha v1.0");
 	ui.menuBar->move(0, 0);
 	setMinimumSize(1024, 768);
 	setMaximumSize(1024, 768);
 	ui.statusBar->hide();
+
+//	自动连接
+	timer_->start(1500);
+	this->connect(timer_, &QTimer::timeout, this, &MyClass::autoConnect);
+	
 }
 
 
@@ -53,13 +61,17 @@ void MyClass::windowShow()
 	animation_->opacityStyle(this, animation::Enum_Mode::Open);
 }
 
+void MyClass::autoConnect()
+{
+	qDebug() << "123123";
+
+}
 
 void MyClass::closeEvent(QCloseEvent* e)
 {
 	animation_->opacityStyle(this, animation::Enum_Mode::Close, 1000);
 	splashscreen::sleep(1000);
 	e->accept();
-	
 }
 
 void MyClass::WebSlot()
@@ -78,7 +90,6 @@ void MyClass::upgradeSlot()
 
 void MyClass::helpSlot()
 {
-
 }
 
 void MyClass::aboutSlot()
@@ -91,12 +102,43 @@ void MyClass::aboutSlot()
 
 void MyClass::connectSlot()
 {
+	/*	
 	conn_->setModal(true);
 	conn_->show();
+	*/
+
+	foreach(const QSerialPortInfo &info, QSerialPortInfo::availablePorts())
+		{
+			if (info.portName() == "COM2")
+			{
+				comInfo = info;
+				qDebug() << "Name : " << comInfo.portName();
+				qDebug() << "Description : " << comInfo.description();
+				qDebug() << "serialNumber: " << comInfo.serialNumber();
+				break;
+			}
+		}
+	com.setPort(comInfo);
+	if (com.open(QIODevice::WriteOnly))
+	{
+		qDebug() << "m_reader.open(QIODevice::WriteOnly)";
+		qDebug() << com.portName();
+		com.setBaudRate(QSerialPort::Baud9600);
+		com.setParity(QSerialPort::NoParity);
+		com.setDataBits(QSerialPort::Data8);
+		com.setStopBits(QSerialPort::OneStop);
+		com.setFlowControl(QSerialPort::NoFlowControl);
+		com.clear();
+	}
+}
+
+void MyClass::outSlot()
+{
+	com.close();
+	
 }
 
 void MyClass::QPushButtonSlot()
 {
-	
-
+	com.write("nihao");
 }

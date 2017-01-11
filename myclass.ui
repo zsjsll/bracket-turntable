@@ -132,6 +132,7 @@
      <string>连接(&amp;A)</string>
     </property>
     <addaction name="actionConnect"/>
+    <addaction name="actionOut"/>
     <addaction name="actionAutoConnect"/>
    </widget>
    <widget class="QMenu" name="menu_S">
@@ -250,6 +251,11 @@
   <action name="actionStatement">
    <property name="text">
     <string>声明(&amp;S)</string>
+   </property>
+  </action>
+  <action name="actionOut">
+   <property name="text">
+    <string>断开(&amp;E)</string>
    </property>
   </action>
  </widget>
