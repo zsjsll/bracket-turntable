@@ -20,30 +20,92 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>300</y>
-      <width>251</width>
-      <height>221</height>
+      <x>890</x>
+      <y>480</y>
+      <width>101</width>
+      <height>101</height>
      </rect>
     </property>
     <property name="text">
      <string>PushButton</string>
     </property>
    </widget>
-   <widget class="QGroupBox" name="groupBox">
+   <widget class="QPushButton" name="upButton">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>131</width>
-      <height>111</height>
+      <x>510</x>
+      <y>70</y>
+      <width>75</width>
+      <height>23</height>
      </rect>
     </property>
-    <property name="styleSheet">
-     <string notr="true">border:1px solid rgba(0,0,0,50%);</string>
+    <property name="text">
+     <string>上升</string>
     </property>
-    <property name="title">
-     <string/>
+   </widget>
+   <widget class="QPushButton" name="bracketdownButton">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>100</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>下降</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="bracketStopButton">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>130</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>支架停止</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="turntableOpenButton">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>280</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>旋转</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="turntableCloseButton">
+    <property name="geometry">
+     <rect>
+      <x>510</x>
+      <y>310</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>停止旋转</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>30</y>
+      <width>71</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>设置身高：</string>
     </property>
    </widget>
   </widget>

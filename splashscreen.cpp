@@ -9,7 +9,7 @@ splashscreen::~splashscreen()
 {
 	delete label;
 	delete movie;
-
+	
 }
 
 void splashscreen::show(int msec)
