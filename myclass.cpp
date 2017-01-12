@@ -30,8 +30,17 @@ MyClass::MyClass(QWidget* parent)
 	this->connect(ui.actionHelp, &QAction::triggered, this, &MyClass::helpSlot);
 	this->connect(ui.actionConnect, &QAction::triggered, this, &MyClass::connectSlot);
 	this->connect(ui.actionOut, &QAction::triggered, this, &MyClass::outSlot);
-
+	this->connect(ui.actionAutoConnect, &QAction::triggered, this, &MyClass::autoConnectSlot);
 	//按键：
+	this->connect(this->ui.turntableCloseButton, &QPushButton::clicked, this, &MyClass::turntableCloseSlot);
+	this->connect(this->ui.turntableOpenButton, &QPushButton::clicked, this, &MyClass::turntableOpenSlot);
+	this->connect(this->ui.bracketUpButton, &QPushButton::clicked, this, &MyClass::bracketUpSlot);
+	this->connect(this->ui.bracketDownButton, &QPushButton::clicked, this, &MyClass::bracketDownSlot);
+	this->connect(this->ui.bracketStopButton, &QPushButton::clicked, this, &MyClass::bracketStopSlot);
+	
+	
+	
+
 	this->connect(this->ui.pushButton, SIGNAL(clicked()), this, SLOT(QPushButtonSlot()));
 
 	//	界面重写：
@@ -41,10 +50,35 @@ MyClass::MyClass(QWidget* parent)
 	setMaximumSize(1024, 768);
 	ui.statusBar->hide();
 
-//	自动连接
-	timer_->start(1500);
-	this->connect(timer_, &QTimer::timeout, this, &MyClass::autoConnect);
-	
+
+	//	信息保存QSettings
+	//自动连接
+	auto checked = ini->value("initialization/autoConnect", "true").toBool();
+	ini->setValue("initialization/autoConnect", checked);
+
+	//串口指令
+	turntableClose = ini->value("setCom/turntableClose", "62 9D 50").toByteArray();
+	ini->setValue("setCom/turntableClose", turntableClose);
+
+	turntableOpen = ini->value("setCom/turntableOpen", "62 9D 51").toByteArray();
+	ini->setValue("setCom/turntableOpen", turntableOpen);
+
+	bracketUp = ini->value("setCom/bracketUp", "62 9D 52").toByteArray();
+	ini->setValue("setCom/bracketUp", bracketUp);
+
+	bracketDown = ini->value("setCom/bracketDown", "62 9D 53").toByteArray();
+	ini->setValue("setCom/bracketDown", bracketDown);
+
+	bracketStop = ini->value("setCom/bracketStop", "62 9D 54").toByteArray();
+	ini->setValue("setCom/bracketStop", bracketStop);
+
+	//	自动连接
+	ui.actionAutoConnect->setChecked(checked);
+	if (ui.actionAutoConnect->isChecked())
+	{
+		timer_->start(1500);
+		this->connect(timer_, &QTimer::timeout, this, &MyClass::connectSlot);
+	}
 }
 
 
@@ -61,11 +95,6 @@ void MyClass::windowShow()
 	animation_->opacityStyle(this, animation::Enum_Mode::Open);
 }
 
-void MyClass::autoConnect()
-{
-	qDebug() << "123123";
-
-}
 
 void MyClass::closeEvent(QCloseEvent* e)
 {
@@ -117,28 +146,82 @@ void MyClass::connectSlot()
 				qDebug() << "serialNumber: " << comInfo.serialNumber();
 				break;
 			}
+			else
+			{
+				qDebug() << "没有这个串口";
+			}
 		}
 	com.setPort(comInfo);
-	if (com.open(QIODevice::WriteOnly))
+	if (com.open(QIODevice::ReadWrite))
 	{
-		qDebug() << "m_reader.open(QIODevice::WriteOnly)";
+		qDebug() << "com.open(QIODevice::ReadWrite)";
 		qDebug() << com.portName();
 		com.setBaudRate(QSerialPort::Baud9600);
 		com.setParity(QSerialPort::NoParity);
 		com.setDataBits(QSerialPort::Data8);
 		com.setStopBits(QSerialPort::OneStop);
 		com.setFlowControl(QSerialPort::NoFlowControl);
+		com.clearError();
 		com.clear();
+		timer_->stop();
+		ui.actionConnect->setEnabled(false);
+		ui.actionOut->setEnabled(true);
 	}
 }
 
 void MyClass::outSlot()
 {
 	com.close();
-	
+	ui.actionConnect->setEnabled(true);
+	ui.actionOut->setEnabled(false);
 }
+
+void MyClass::autoConnectSlot()
+{
+	if (ui.actionAutoConnect->isChecked())
+	{
+		ini->setValue("initialization/autoConnect","true");
+	}
+	else
+	{
+		ini->setValue("initialization/autoConnect", "false");
+	}
+}
+
+void MyClass::turntableCloseSlot()
+{
+	com.clear();
+	com.write(turntableClose);
+}
+
+void MyClass::turntableOpenSlot()
+{
+	com.clear();
+	com.write(turntableOpen);
+}
+
+void MyClass::bracketUpSlot()
+{
+	com.clear();
+	com.write(bracketUp);
+}
+
+void MyClass::bracketDownSlot()
+{
+	com.clear();
+	com.write(bracketDown);
+}
+
+void MyClass::bracketStopSlot()
+{
+	com.clear();
+	com.write(bracketStop);
+}
+
+
 
 void MyClass::QPushButtonSlot()
 {
-	com.write("nihao");
+	com.clear();
+	com.write("ceshi");
 }

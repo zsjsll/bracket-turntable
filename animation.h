@@ -28,7 +28,7 @@ public:
 private:
 	QPropertyAnimation *propertyAnimation;
 
-	int tab;
+	
 	
 	
 };

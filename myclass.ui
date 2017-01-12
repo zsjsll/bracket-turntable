@@ -30,7 +30,7 @@
      <string>PushButton</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="upButton">
+   <widget class="QPushButton" name="bracketUpButton">
     <property name="geometry">
      <rect>
       <x>510</x>
@@ -43,7 +43,7 @@
      <string>上升</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="bracketdownButton">
+   <widget class="QPushButton" name="bracketDownButton">
     <property name="geometry">
      <rect>
       <x>510</x>

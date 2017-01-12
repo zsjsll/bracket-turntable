@@ -17,7 +17,8 @@
 #include <QCloseEvent>
 #include <QtSerialPort/QtSerialPort>  
 #include <QtSerialPort/QSerialPortInfo> 
-#include <QMessageBox>
+#include <QSettings>
+
 
 class MyClass : public QMainWindow
 {
@@ -30,7 +31,7 @@ public:
 	~MyClass();
 
 	void windowShow();
-	void autoConnect();
+	
 private:
 	Ui::MyClassClass ui;
 	upgrade* upgrade_ = new upgrade(this); //窗口
@@ -43,7 +44,14 @@ private:
 	QSerialPort com; //确定串口
 
 	QTimer* timer_ = new QTimer(this);//关于自动连接的计时器
+	QSettings *ini = new QSettings("config.ini", QSettings::IniFormat,this);
 
+	QByteArray turntableClose;
+	QByteArray turntableOpen;
+	QByteArray bracketUp;
+	QByteArray bracketDown;
+	QByteArray bracketStop;
+	
 
 protected:
 	void closeEvent(QCloseEvent *e);
@@ -56,7 +64,14 @@ private slots:
 	void aboutSlot();
 	void connectSlot();
 	void outSlot();
-	
+	void autoConnectSlot();
+	void turntableCloseSlot();
+	void turntableOpenSlot();
+	void bracketUpSlot();
+	void bracketDownSlot();
+	void bracketStopSlot();
+
+
 	void QPushButtonSlot();
 	
 };
