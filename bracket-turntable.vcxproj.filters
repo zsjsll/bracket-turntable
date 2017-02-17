@@ -95,6 +95,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_splashscreen.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="stringtohex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_stringtohex.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_stringtohex.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="myclass.h">
@@ -128,6 +137,9 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="splashscreen.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="stringtohex.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

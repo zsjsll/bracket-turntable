@@ -138,7 +138,7 @@ void MyClass::connectSlot()
 
 	foreach(const QSerialPortInfo &info, QSerialPortInfo::availablePorts())
 		{
-			if (info.portName() == "COM2")
+			if (info.portName() == "COM3")
 			{
 				comInfo = info;
 				qDebug() << "Name : " << comInfo.portName();
@@ -223,5 +223,11 @@ void MyClass::bracketStopSlot()
 void MyClass::QPushButtonSlot()
 {
 	com.clear();
-	com.write("ceshi");
+	QString str = "62 9D 50";
+	QByteArray sendHEX;
+	StringToHEX::String2Hex(str, sendHEX);
+	qDebug() << sendHEX.toHex();
+	qDebug() << sendHEX;
+
+	com.write(sendHEX);
 }

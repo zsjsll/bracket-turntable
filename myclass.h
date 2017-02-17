@@ -18,6 +18,7 @@
 #include <QtSerialPort/QtSerialPort>  
 #include <QtSerialPort/QSerialPortInfo> 
 #include <QSettings>
+#include <stringtohex.h>
 
 
 class MyClass : public QMainWindow
