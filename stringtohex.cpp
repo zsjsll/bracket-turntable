@@ -22,7 +22,7 @@ char StringToHEX::ConvertHexChar(char ch)
 	else return (-1);
 }
 
-QByteArray StringToHEX::String2Hex(QString &str)
+QByteArray StringToHEX::toHEX(QString &str)
 {
 	int hexdata, lowhexdata;
 	int hexdatalen = 0;

@@ -8,12 +8,12 @@ class StringToHEX : public QObject
 	Q_OBJECT
 
 public:
-	StringToHEX(QObject *parent);
+	StringToHEX(QObject *parent=nullptr);
 	~StringToHEX();
 
 	static char ConvertHexChar(char ch);
 
-	static QByteArray String2Hex(QString &str);
+	QByteArray toHEX(QString &str);
 
 private:
 	

@@ -53,6 +53,7 @@ private:
 	QString bracketDown;
 	QString bracketStop;
 	
+	StringToHEX sendData;
 
 protected:
 	void closeEvent(QCloseEvent *e);

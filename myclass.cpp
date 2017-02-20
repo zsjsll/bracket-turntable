@@ -190,35 +190,35 @@ void MyClass::turntableCloseSlot()
 {
 	com.clear();
 
-	//	com.write(turntableClose);
+	com.write(sendData.toHEX(turntableClose));
 }
 
 void MyClass::turntableOpenSlot()
 {
 	com.clear();
-	qDebug() << turntableOpen;
-	//	com.write(turntableOpen);
+
+	com.write(sendData.toHEX(turntableOpen));
 }
 
 void MyClass::bracketUpSlot()
 {
 	com.clear();
 
-	//	com.write(bracketUp);
+	com.write(sendData.toHEX(bracketUp));
 }
 
 void MyClass::bracketDownSlot()
 {
 	com.clear();
 
-	//	com.write(bracketDown);
+	com.write(sendData.toHEX(bracketDown));
 }
 
 void MyClass::bracketStopSlot()
 {
 	com.clear();
 
-	//	com.write(bracketStop);
+	com.write(sendData.toHEX(bracketStop));
 }
 
 
@@ -229,10 +229,10 @@ void MyClass::QPushButtonSlot()
 
 	//	StringToHEX::String2Hex(str, sendHEX);
 
-	StringToHEX::String2Hex(str);
-	
-	qDebug() << StringToHEX::String2Hex(str);
-	qDebug() << StringToHEX::String2Hex(str).toHex();
+	sendData.toHEX(str);
 
-	com.write(StringToHEX::String2Hex(str));
+	qDebug() << sendData.toHEX(str);
+	qDebug() << sendData.toHEX(str).toHex();
+
+	com.write(sendData.toHEX(str));
 }
