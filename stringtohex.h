@@ -13,7 +13,7 @@ public:
 
 	static char ConvertHexChar(char ch);
 
-	static void String2Hex(QString str, QByteArray &senddata);
+	static QByteArray String2Hex(QString &str);
 
 private:
 	

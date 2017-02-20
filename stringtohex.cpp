@@ -22,11 +22,12 @@ char StringToHEX::ConvertHexChar(char ch)
 	else return (-1);
 }
 
-void StringToHEX::String2Hex(QString str, QByteArray& senddata)
+QByteArray StringToHEX::String2Hex(QString &str)
 {
 	int hexdata, lowhexdata;
 	int hexdatalen = 0;
 	int len = str.length();
+	QByteArray senddata;
 	senddata.resize(len / 2);
 	char lstr, hstr;
 	for (int i = 0; i<len; )
@@ -52,4 +53,5 @@ void StringToHEX::String2Hex(QString str, QByteArray& senddata)
 		hexdatalen++;
 	}
 	senddata.resize(hexdatalen);
+	return senddata;
 }

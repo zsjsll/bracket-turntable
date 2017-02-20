@@ -47,11 +47,11 @@ private:
 	QTimer* timer_ = new QTimer(this);//关于自动连接的计时器
 	QSettings *ini = new QSettings("config.ini", QSettings::IniFormat,this);
 
-	QByteArray turntableClose;
-	QByteArray turntableOpen;
-	QByteArray bracketUp;
-	QByteArray bracketDown;
-	QByteArray bracketStop;
+	QString turntableClose;
+	QString turntableOpen;
+	QString bracketUp;
+	QString bracketDown;
+	QString bracketStop;
 	
 
 protected:

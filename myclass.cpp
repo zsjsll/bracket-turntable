@@ -37,9 +37,7 @@ MyClass::MyClass(QWidget* parent)
 	this->connect(this->ui.bracketUpButton, &QPushButton::clicked, this, &MyClass::bracketUpSlot);
 	this->connect(this->ui.bracketDownButton, &QPushButton::clicked, this, &MyClass::bracketDownSlot);
 	this->connect(this->ui.bracketStopButton, &QPushButton::clicked, this, &MyClass::bracketStopSlot);
-	
-	
-	
+
 
 	this->connect(this->ui.pushButton, SIGNAL(clicked()), this, SLOT(QPushButtonSlot()));
 
@@ -57,19 +55,19 @@ MyClass::MyClass(QWidget* parent)
 	ini->setValue("initialization/autoConnect", checked);
 
 	//串口指令
-	turntableClose = ini->value("setCom/turntableClose", "62 9D 50").toByteArray();
+	turntableClose = ini->value("setCom/turntableClose", "62 9D 50").toString();
 	ini->setValue("setCom/turntableClose", turntableClose);
 
-	turntableOpen = ini->value("setCom/turntableOpen", "62 9D 51").toByteArray();
+	turntableOpen = ini->value("setCom/turntableOpen", "62 9D 51").toString();
 	ini->setValue("setCom/turntableOpen", turntableOpen);
 
-	bracketUp = ini->value("setCom/bracketUp", "62 9D 52").toByteArray();
+	bracketUp = ini->value("setCom/bracketUp", "62 9D 52").toString();
 	ini->setValue("setCom/bracketUp", bracketUp);
 
-	bracketDown = ini->value("setCom/bracketDown", "62 9D 53").toByteArray();
+	bracketDown = ini->value("setCom/bracketDown", "62 9D 53").toString();
 	ini->setValue("setCom/bracketDown", bracketDown);
 
-	bracketStop = ini->value("setCom/bracketStop", "62 9D 54").toByteArray();
+	bracketStop = ini->value("setCom/bracketStop", "62 9D 54").toString();
 	ini->setValue("setCom/bracketStop", bracketStop);
 
 	//	自动连接
@@ -137,20 +135,20 @@ void MyClass::connectSlot()
 	*/
 
 	foreach(const QSerialPortInfo &info, QSerialPortInfo::availablePorts())
+	{
+		if (info.portName() == "COM3")
 		{
-			if (info.portName() == "COM3")
-			{
-				comInfo = info;
-				qDebug() << "Name : " << comInfo.portName();
-				qDebug() << "Description : " << comInfo.description();
-				qDebug() << "serialNumber: " << comInfo.serialNumber();
-				break;
-			}
-			else
-			{
-				qDebug() << "没有这个串口";
-			}
+			comInfo = info;
+			qDebug() << "Name : " << comInfo.portName();
+			qDebug() << "Description : " << comInfo.description();
+			qDebug() << "serialNumber: " << comInfo.serialNumber();
+			break;
 		}
+		else
+		{
+			qDebug() << "没有这个串口";
+		}
+	}
 	com.setPort(comInfo);
 	if (com.open(QIODevice::ReadWrite))
 	{
@@ -180,7 +178,7 @@ void MyClass::autoConnectSlot()
 {
 	if (ui.actionAutoConnect->isChecked())
 	{
-		ini->setValue("initialization/autoConnect","true");
+		ini->setValue("initialization/autoConnect", "true");
 	}
 	else
 	{
@@ -191,43 +189,50 @@ void MyClass::autoConnectSlot()
 void MyClass::turntableCloseSlot()
 {
 	com.clear();
-	com.write(turntableClose);
+
+	//	com.write(turntableClose);
 }
 
 void MyClass::turntableOpenSlot()
 {
 	com.clear();
-	com.write(turntableOpen);
+	qDebug() << turntableOpen;
+	//	com.write(turntableOpen);
 }
 
 void MyClass::bracketUpSlot()
 {
 	com.clear();
-	com.write(bracketUp);
+
+	//	com.write(bracketUp);
 }
 
 void MyClass::bracketDownSlot()
 {
 	com.clear();
-	com.write(bracketDown);
+
+	//	com.write(bracketDown);
 }
 
 void MyClass::bracketStopSlot()
 {
 	com.clear();
-	com.write(bracketStop);
-}
 
+	//	com.write(bracketStop);
+}
 
 
 void MyClass::QPushButtonSlot()
 {
 	com.clear();
-	QString str = "62 9D 50";
-	QByteArray sendHEX;
-	StringToHEX::String2Hex(str, sendHEX);
-	qDebug() << sendHEX.toHex();
-	qDebug() << sendHEX;
+	QString str = "62 9D 53";
 
-	com.write(sendHEX);
+	//	StringToHEX::String2Hex(str, sendHEX);
+
+	StringToHEX::String2Hex(str);
+	
+	qDebug() << StringToHEX::String2Hex(str);
+	qDebug() << StringToHEX::String2Hex(str).toHex();
+
+	com.write(StringToHEX::String2Hex(str));
 }
