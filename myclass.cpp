@@ -16,9 +16,12 @@ MyClass::MyClass(QWidget* parent)
 	Qt::WindowFlags flags = Qt::Dialog;
 	flags |= Qt::WindowCloseButtonHint;
 	flags |= Qt::WindowMinimizeButtonHint;
+	flags |= Qt::WindowStaysOnTopHint;//窗口顶置
 	//flags |= Qt::WindowCloseButtonHint;
 	//flags |= Qt::FramelessWindowHint;
 	setWindowFlags(flags);
+
+	
 
 	//this->setAttribute(Qt::WA_TranslucentBackground);
 
@@ -39,13 +42,14 @@ MyClass::MyClass(QWidget* parent)
 	this->connect(this->ui.bracketStopButton, &QPushButton::clicked, this, &MyClass::bracketStopSlot);
 
 
-	this->connect(this->ui.pushButton, SIGNAL(clicked()), this, SLOT(QPushButtonSlot()));
+	//this->connect(this->ui.pushButton, SIGNAL(clicked()), this, SLOT(QPushButtonSlot()));
+	this->connect(this->ui.pushButton, &QPushButton::clicked, this, &MyClass::QPushButtonSlot);
 
 	//	界面重写：
 	this->setWindowTitle("alpha v1.0");
 	ui.menuBar->move(0, 0);
-	setMinimumSize(1024, 768);
-	setMaximumSize(1024, 768);
+	//setMinimumSize(400, 768);
+	//setMaximumSize(400, 768);
 	ui.statusBar->hide();
 
 
@@ -77,6 +81,13 @@ MyClass::MyClass(QWidget* parent)
 		timer_->start(1500);
 		this->connect(timer_, &QTimer::timeout, this, &MyClass::connectSlot);
 	}
+
+//	窗口停靠
+	windowdocked_ = new windowdocked(this);
+	windowTimer->start(50);
+	this->connect(windowTimer, &QTimer::timeout, this, &MyClass::movePoint);
+	
+
 }
 
 
@@ -91,6 +102,11 @@ void MyClass::windowShow()
 	splashscreen_->show(1700);
 	this->show();
 	animation_->opacityStyle(this, animation::Enum_Mode::Open);
+}
+
+void MyClass::movePoint()
+{
+	windowdocked_->setGeometry(this);
 }
 
 
@@ -224,15 +240,17 @@ void MyClass::bracketStopSlot()
 
 void MyClass::QPushButtonSlot()
 {
-	com.clear();
-	QString str = "62 9D 53";
+	auto hWnd = FindWindowA(nullptr,"< - 3D Color Scanner");
+	RECT rect;
+	qDebug() << hWnd;
+	GetWindowRect(hWnd, &rect);
+	int w = rect.right - rect.left;
+	int h = rect.bottom - rect.top;
+	auto leftTop = QRect(rect.left, rect.top,w,h);
+	qDebug() << leftTop;
 
-	//	StringToHEX::String2Hex(str, sendHEX);
-
-	sendData.toHEX(str);
-
-	qDebug() << sendData.toHEX(str);
-	qDebug() << sendData.toHEX(str).toHex();
-
-	com.write(sendData.toHEX(str));
+	qDebug() << "weight:" << w << "   " << "hight:"<<h;
+	
+	qDebug() << this->geometry().topLeft();
+	
 }
