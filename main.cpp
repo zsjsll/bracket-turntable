@@ -12,6 +12,7 @@ int main(int argc, char* argv[])
 
 	MyClass w;
 	w.windowShow();
+	
 	return a.exec();
 
 

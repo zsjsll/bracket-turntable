@@ -23,7 +23,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <windowdocked.h>
-
+#include <QMessageBox>
 
 class MyClass : public QMainWindow
 {
@@ -54,6 +54,10 @@ private:
 	QSettings *ini = new QSettings("config.ini", QSettings::IniFormat,this);
 
 	QTimer* windowTimer = new QTimer(this);//关于窗口停靠的计时器
+	QRect leftTop;//窗口的锚点
+	int height; /*窗口的高度*/
+	HWND hWnd;
+	bool tf;
 
 	QString turntableClose;
 	QString turntableOpen;
@@ -63,7 +67,7 @@ private:
 	
 	StringToHEX sendData;
 
-	windowdocked *windowdocked_;
+
 protected:
 	void closeEvent(QCloseEvent *e);
 	

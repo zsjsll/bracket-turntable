@@ -18,10 +18,9 @@ MyClass::MyClass(QWidget* parent)
 	flags |= Qt::WindowMinimizeButtonHint;
 	flags |= Qt::WindowStaysOnTopHint;//窗口顶置
 	//flags |= Qt::WindowCloseButtonHint;
-	//flags |= Qt::FramelessWindowHint;
+	flags |= Qt::FramelessWindowHint;
 	setWindowFlags(flags);
 
-	
 
 	//this->setAttribute(Qt::WA_TranslucentBackground);
 
@@ -50,8 +49,10 @@ MyClass::MyClass(QWidget* parent)
 	ui.menuBar->move(0, 0);
 	//setMinimumSize(400, 768);
 	//setMaximumSize(400, 768);
+	ui.mainToolBar->hide();
 	ui.statusBar->hide();
-
+	ui.menuBar->hide();
+	//this->resize(0, 0);
 
 	//	信息保存QSettings
 	//自动连接
@@ -82,12 +83,11 @@ MyClass::MyClass(QWidget* parent)
 		this->connect(timer_, &QTimer::timeout, this, &MyClass::connectSlot);
 	}
 
-//	窗口停靠
-	windowdocked_ = new windowdocked(this);
-	windowTimer->start(50);
-	this->connect(windowTimer, &QTimer::timeout, this, &MyClass::movePoint);
-	
+	//	窗口停靠
 
+
+	windowTimer->start(1);
+	this->connect(windowTimer, &QTimer::timeout, this, &MyClass::movePoint);
 }
 
 
@@ -99,21 +99,36 @@ MyClass::~MyClass()
 
 void MyClass::windowShow()
 {
-	splashscreen_->show(1700);
+	splashscreen_->show(0); //启动动画时间
+	//splashscreen::sleep(1000);
 	this->show();
+
 	animation_->opacityStyle(this, animation::Enum_Mode::Open);
 }
 
 void MyClass::movePoint()
 {
-	windowdocked_->setGeometry(this);
+	tf = windowdocked::findParentWindow(hWnd);
+	if (tf)
+	{
+		RECT rect;
+		GetWindowRect(hWnd, &rect);
+		//int w = rect.right - rect.left;
+		height = rect.bottom - rect.top;
+		leftTop = QRect(rect.left + 500, rect.top + 31, 500, 48);
+		this->setGeometry(leftTop);
+	}
+	else
+	{
+		this->close();
+	}
 }
 
-
+//重新关闭事件。让其有个关闭动画。
 void MyClass::closeEvent(QCloseEvent* e)
 {
-	animation_->opacityStyle(this, animation::Enum_Mode::Close, 1000);
-	splashscreen::sleep(1000);
+	animation_->opacityStyle(this, animation::Enum_Mode::Close, 0);
+	//splashscreen::sleep(1000);
 	e->accept();
 }
 
@@ -240,17 +255,5 @@ void MyClass::bracketStopSlot()
 
 void MyClass::QPushButtonSlot()
 {
-	auto hWnd = FindWindowA(nullptr,"< - 3D Color Scanner");
-	RECT rect;
-	qDebug() << hWnd;
-	GetWindowRect(hWnd, &rect);
-	int w = rect.right - rect.left;
-	int h = rect.bottom - rect.top;
-	auto leftTop = QRect(rect.left, rect.top,w,h);
-	qDebug() << leftTop;
-
-	qDebug() << "weight:" << w << "   " << "hight:"<<h;
-	
-	qDebug() << this->geometry().topLeft();
-	
+	this->close();
 }

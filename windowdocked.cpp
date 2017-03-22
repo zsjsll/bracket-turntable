@@ -3,29 +3,25 @@
 windowdocked::windowdocked(QObject* parent)
 	: QObject(parent)
 {
-	
-
 }
 
 windowdocked::~windowdocked()
 {
 }
 
-void windowdocked::setGeometry(QWidget* p) 
+
+bool windowdocked::findParentWindow(HWND& hWnd)
 {
-	auto hWnd = FindWindowA(nullptr, "< - 3D Color Scanner");
-	RECT rect;
-	qDebug() << hWnd;
-	GetWindowRect(hWnd, &rect);
-	//int w = rect.right - rect.left;
-	height = rect.bottom - rect.top;
-	rightTop = QRect(rect.right-7, rect.top+31, 400, height-39);
-	
-	if (hWnd==nullptr)
+	hWnd = FindWindowA(nullptr, "< - 3D Color Scanner");
+	//qDebug() << hWnd;
+	//hWnd = hwnd;
+	if (hWnd ==nullptr)
 	{
-		return;
+		
+		return false;
 	}
-	p->setGeometry(rightTop);
+	return true;
+	
 }
 
 

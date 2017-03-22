@@ -15,14 +15,13 @@ class windowdocked : public QObject
 public:
 	windowdocked(QObject *parent=nullptr);
 	~windowdocked();
-	void setGeometry(QWidget*) ;
+	static bool findParentWindow(HWND& hWnd) ;
 
 
 
 private:
 	QTimer *timer = new QTimer(this);
-	QRect rightTop;
-	int height;
+	
 	
 };
 
