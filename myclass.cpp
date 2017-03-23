@@ -103,7 +103,7 @@ void MyClass::windowShow()
 	//splashscreen::sleep(1000);
 	this->show();
 
-	animation_->opacityStyle(this, animation::Enum_Mode::Open);
+	animation_->opacityStyle(this, animation::Enum_Mode::Open,100);
 }
 
 void MyClass::movePoint()
@@ -255,5 +255,8 @@ void MyClass::bracketStopSlot()
 
 void MyClass::QPushButtonSlot()
 {
-	this->close();
+	QProcess *app=new QProcess(this);
+	app->start("cmd");
+	qDebug() << app;
 }
+

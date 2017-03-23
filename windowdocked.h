@@ -15,7 +15,7 @@ class windowdocked : public QObject
 public:
 	windowdocked(QObject *parent=nullptr);
 	~windowdocked();
-	static bool findParentWindow(HWND& hWnd) ;
+	static bool findParentWindow(HWND& hWnd); ;
 
 
 

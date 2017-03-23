@@ -113,6 +113,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_windowdocked.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="start.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_start.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_start.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="myclass.h">
@@ -152,6 +161,9 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="windowdocked.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="start.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

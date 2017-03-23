@@ -24,6 +24,7 @@
 #include <string.h>
 #include <windowdocked.h>
 #include <QMessageBox>
+#include <QProcess>
 
 class MyClass : public QMainWindow
 {
@@ -66,7 +67,7 @@ private:
 	QString bracketStop;
 	
 	StringToHEX sendData;
-
+	
 
 protected:
 	void closeEvent(QCloseEvent *e);
