@@ -26,11 +26,12 @@
 #include <QMessageBox>
 #include <QProcess>
 
+
 class MyClass : public QMainWindow
 {
 	Q_OBJECT
 
-		
+	
 
 public:
 	MyClass(QWidget* parent = nullptr);

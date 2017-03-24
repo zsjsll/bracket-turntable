@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>521</width>
-    <height>102</height>
+    <width>530</width>
+    <height>109</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,24 +17,14 @@
    <string notr="true"/>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="pushButton">
-    <property name="geometry">
-     <rect>
-      <x>410</x>
-      <y>10</y>
-      <width>81</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>PushButton</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="bracketUpButton">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
+      <x>25</x>
+      <y>15</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -44,10 +34,13 @@
     </property>
    </widget>
    <widget class="QPushButton" name="bracketDownButton">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>10</y>
+      <x>106</x>
+      <y>15</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -57,10 +50,13 @@
     </property>
    </widget>
    <widget class="QPushButton" name="bracketStopButton">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>170</x>
-      <y>10</y>
+      <x>187</x>
+      <y>15</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -70,10 +66,13 @@
     </property>
    </widget>
    <widget class="QPushButton" name="turntableOpenButton">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>250</x>
-      <y>10</y>
+      <x>268</x>
+      <y>15</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -83,10 +82,13 @@
     </property>
    </widget>
    <widget class="QPushButton" name="turntableCloseButton">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
-      <x>330</x>
-      <y>10</y>
+      <x>349</x>
+      <y>15</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -95,13 +97,42 @@
      <string>停止旋转</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>430</x>
+      <y>15</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="LED">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>4</y>
+      <width>10</width>
+      <height>10</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>521</width>
+     <width>530</width>
      <height>23</height>
     </rect>
    </property>
@@ -114,22 +145,6 @@
     <addaction name="actionHelp"/>
     <addaction name="actionWeb"/>
    </widget>
-   <widget class="QMenu" name="menu_C">
-    <property name="title">
-     <string>连接(&amp;A)</string>
-    </property>
-    <addaction name="actionConnect"/>
-    <addaction name="actionOut"/>
-    <addaction name="actionAutoConnect"/>
-   </widget>
-   <widget class="QMenu" name="menu_S">
-    <property name="title">
-     <string>选项(&amp;S)</string>
-    </property>
-    <addaction name="actionConfig"/>
-   </widget>
-   <addaction name="menu_C"/>
-   <addaction name="menu_S"/>
    <addaction name="menu_H"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">

@@ -46,13 +46,21 @@ MyClass::MyClass(QWidget* parent)
 
 	//	界面重写：
 	this->setWindowTitle("alpha v1.0");
-	ui.menuBar->move(0, 0);
+	//ui.menuBar->move(10, 50);
 	//setMinimumSize(400, 768);
 	//setMaximumSize(400, 768);
 	ui.mainToolBar->hide();
 	ui.statusBar->hide();
 	ui.menuBar->hide();
 	//this->resize(0, 0);
+	ui.pushButton->setEnabled(false);
+	ui.bracketDownButton->setEnabled(false);
+	ui.bracketStopButton->setEnabled(false);
+	ui.bracketUpButton->setEnabled(false);
+	ui.turntableCloseButton->setEnabled(false);
+	ui.turntableOpenButton->setEnabled(false);
+
+
 
 	//	信息保存QSettings
 	//自动连接
@@ -84,8 +92,6 @@ MyClass::MyClass(QWidget* parent)
 	}
 
 	//	窗口停靠
-
-
 	windowTimer->start(1);
 	this->connect(windowTimer, &QTimer::timeout, this, &MyClass::movePoint);
 }
@@ -103,7 +109,7 @@ void MyClass::windowShow()
 	//splashscreen::sleep(1000);
 	this->show();
 
-	animation_->opacityStyle(this, animation::Enum_Mode::Open,100);
+	animation_->opacityStyle(this, animation::Enum_Mode::Open, 100);
 }
 
 void MyClass::movePoint()
@@ -115,11 +121,19 @@ void MyClass::movePoint()
 		GetWindowRect(hWnd, &rect);
 		//int w = rect.right - rect.left;
 		height = rect.bottom - rect.top;
-		leftTop = QRect(rect.left + 500, rect.top + 31, 500, 48);
+		leftTop = QRect(rect.left + 500, rect.top + 31, 600, 48);
 		this->setGeometry(leftTop);
 	}
 	else
 	{
+		this->hide();
+		splashscreen::sleep(100);
+		com.clear();
+		com.write(sendData.toHEX(turntableClose));
+		splashscreen::sleep(100);
+		com.clear();
+		com.write(sendData.toHEX(bracketStop));
+		splashscreen::sleep(100);
 		this->close();
 	}
 }
@@ -173,6 +187,8 @@ void MyClass::connectSlot()
 			qDebug() << "Name : " << comInfo.portName();
 			qDebug() << "Description : " << comInfo.description();
 			qDebug() << "serialNumber: " << comInfo.serialNumber();
+			qDebug() << "manufacturer:" << comInfo.manufacturer();
+			
 			break;
 		}
 		else
@@ -193,6 +209,16 @@ void MyClass::connectSlot()
 		com.clearError();
 		com.clear();
 		timer_->stop();
+		//设置按键可用
+		ui.pushButton->setEnabled(true);
+		ui.bracketDownButton->setEnabled(true);
+		ui.bracketStopButton->setEnabled(true);
+		ui.bracketUpButton->setEnabled(true);
+		ui.turntableCloseButton->setEnabled(true);
+		ui.turntableOpenButton->setEnabled(true);
+		
+		ui.LED->setStyleSheet("background-color:rgb(0, 255, 0);"); //LED灯变色
+
 		ui.actionConnect->setEnabled(false);
 		ui.actionOut->setEnabled(true);
 	}
@@ -233,16 +259,32 @@ void MyClass::turntableOpenSlot()
 
 void MyClass::bracketUpSlot()
 {
+	
 	com.clear();
+	//auto HotKeyId = GlobalAddAtomA("MyHotKey") - 0xC000;
 
+
+	/*com.write(sendData.toHEX(bracketStop));
+	splashscreen::sleep(2000);
+	com.clear();*/
 	com.write(sendData.toHEX(bracketUp));
+/*	splashscreen::sleep(500);
+	ui.bracketUpButton->setEnabled(false);
+	ui.bracketDownButton->setEnabled(true);*/
 }
 
 void MyClass::bracketDownSlot()
 {
+	
 	com.clear();
-
+	
+	/*com.write(sendData.toHEX(bracketStop));
+	splashscreen::sleep(2000);
+	com.clear();*/
 	com.write(sendData.toHEX(bracketDown));
+/*	splashscreen::sleep(500);
+	ui.bracketUpButton->setEnabled(true);
+	ui.bracketDownButton->setEnabled(false);*/
 }
 
 void MyClass::bracketStopSlot()
@@ -250,13 +292,14 @@ void MyClass::bracketStopSlot()
 	com.clear();
 
 	com.write(sendData.toHEX(bracketStop));
+
+
 }
 
 
 void MyClass::QPushButtonSlot()
 {
-	QProcess *app=new QProcess(this);
+	QProcess* app = new QProcess(this);
 	app->start("cmd");
 	qDebug() << app;
 }
-
