@@ -7,14 +7,15 @@
 int main(int argc, char* argv[])
 {
 	QApplication a(argc, argv);
-	start s;
-	s.run();
+	start start(RUN::CHANGE);
+	
+	//s.run();
 	//qDebug() << run.isRunning();
 	
 	//MyClass w;
-	//w.windowShow();
+	//w.hide();
 	
 	return a.exec();
-
+	
 
 }

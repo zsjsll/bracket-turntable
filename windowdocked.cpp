@@ -17,8 +17,7 @@ bool windowdocked::findParentWindow(HWND& hWnd)
 	//qDebug() << hWnd;
 	//hWnd = hwnd;
 	if (hWnd ==nullptr)
-	{
-		
+	{	
 		return false;
 	}
 	return true;

@@ -110,7 +110,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>关于</string>
     </property>
    </widget>
    <widget class="QLabel" name="LED">

@@ -38,7 +38,8 @@ public:
 	~MyClass();
 
 	void windowShow();
-
+	void newShow();
+	void disShow();
 	
 	
 private:
@@ -58,7 +59,8 @@ private:
 	QTimer* windowTimer = new QTimer(this);//关于窗口停靠的计时器
 	QRect leftTop;//窗口的锚点
 	int height; /*窗口的高度*/
-	HWND hWnd;
+	HWND p;
+	HWND fail_p;
 	bool tf;
 
 	QString turntableClose;
@@ -68,7 +70,8 @@ private:
 	QString bracketStop;
 	
 	StringToHEX sendData;
-	
+
+
 
 protected:
 	void closeEvent(QCloseEvent *e);
@@ -91,6 +94,9 @@ private slots:
 
 	void QPushButtonSlot();
 	void movePoint();//窗口停靠
+
+
+	
 };
 
 #endif // MYCLASS_H

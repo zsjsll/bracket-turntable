@@ -14,16 +14,18 @@ MyClass::MyClass(QWidget* parent)
 
 	//	标题：
 	Qt::WindowFlags flags = Qt::Dialog;
-	flags |= Qt::WindowCloseButtonHint;
-	flags |= Qt::WindowMinimizeButtonHint;
+	//flags |= Qt::WindowCloseButtonHint;
+	//flags |= Qt::WindowMinimizeButtonHint;
 	flags |= Qt::WindowStaysOnTopHint;//窗口顶置
 	//flags |= Qt::WindowCloseButtonHint;
 	flags |= Qt::FramelessWindowHint;
+	flags |= Qt::Tool;
+	//flags |= Qt::X11BypassWindowManagerHint;
 	setWindowFlags(flags);
-
-
+	//QApplication::setQuitOnLastWindowClosed(false);
+	//setAttribute(Qt::WA_DeleteOnClose, false);
 	//this->setAttribute(Qt::WA_TranslucentBackground);
-
+	this->setAttribute(Qt::WA_QuitOnClose, true);
 	//	信号与槽：
 	//菜单：
 	this->connect(ui.actionWeb, &QAction::triggered, this, &MyClass::WebSlot);
@@ -53,13 +55,12 @@ MyClass::MyClass(QWidget* parent)
 	ui.statusBar->hide();
 	ui.menuBar->hide();
 	//this->resize(0, 0);
-	ui.pushButton->setEnabled(false);
-	ui.bracketDownButton->setEnabled(false);
-	ui.bracketStopButton->setEnabled(false);
-	ui.bracketUpButton->setEnabled(false);
-	ui.turntableCloseButton->setEnabled(false);
-	ui.turntableOpenButton->setEnabled(false);
-
+	ui.pushButton->setVisible(false);
+	ui.bracketDownButton->setVisible(false);
+	ui.bracketStopButton->setVisible(false);
+	ui.bracketUpButton->setVisible(false);
+	ui.turntableCloseButton->setVisible(false);
+	ui.turntableOpenButton->setVisible(false);
 
 
 	//	信息保存QSettings
@@ -91,9 +92,11 @@ MyClass::MyClass(QWidget* parent)
 		this->connect(timer_, &QTimer::timeout, this, &MyClass::connectSlot);
 	}
 
-	//	窗口停靠
-	windowTimer->start(1);
-	this->connect(windowTimer, &QTimer::timeout, this, &MyClass::movePoint);
+
+	//hotkey
+
+	//connect(shortcut, SIGNAL(activated()), this, SLOT(myslot()));
+	//connect(shortcut, &QxtGlobalShortcut::activated, this, &MyClass::bracketUpSlot);
 }
 
 
@@ -112,13 +115,30 @@ void MyClass::windowShow()
 	animation_->opacityStyle(this, animation::Enum_Mode::Open, 100);
 }
 
+void MyClass::newShow()
+{
+	this->show();
+	//	窗口停靠
+	windowTimer->start(1);
+	this->connect(windowTimer, &QTimer::timeout, this, &MyClass::movePoint);
+}
+
+void MyClass::disShow()
+{
+	exit(0);
+}
+
 void MyClass::movePoint()
 {
-	tf = windowdocked::findParentWindow(hWnd);
+	//this->setFocus();
+
+	//this->show();
+
+	tf = windowdocked::findParentWindow(p);
 	if (tf)
 	{
 		RECT rect;
-		GetWindowRect(hWnd, &rect);
+		GetWindowRect(p, &rect);
 		//int w = rect.right - rect.left;
 		height = rect.bottom - rect.top;
 		leftTop = QRect(rect.left + 500, rect.top + 31, 600, 48);
@@ -134,14 +154,19 @@ void MyClass::movePoint()
 		com.clear();
 		com.write(sendData.toHEX(bracketStop));
 		splashscreen::sleep(100);
-		this->close();
+
+		exit(0);
 	}
 }
+
 
 //重新关闭事件。让其有个关闭动画。
 void MyClass::closeEvent(QCloseEvent* e)
 {
-	animation_->opacityStyle(this, animation::Enum_Mode::Close, 0);
+	//QGuiApplication::setQuitOnLastWindowClosed(true);
+
+	//this->deleteLater();
+	//animation_->opacityStyle(this, animation::Enum_Mode::Close, 0);
 	//splashscreen::sleep(1000);
 	e->accept();
 }
@@ -168,6 +193,8 @@ void MyClass::aboutSlot()
 {
 	about_->setModal(true);
 	about_->show();
+
+	about_->move(this->pos().x() - 100, this->pos().y() + 100);
 	animation_->opacityStyle(about_, animation::Enum_Mode::Open);
 }
 
@@ -181,14 +208,14 @@ void MyClass::connectSlot()
 
 	foreach(const QSerialPortInfo &info, QSerialPortInfo::availablePorts())
 	{
-		if (info.portName() == "COM3")
+		if (info.description() == "Silicon Labs CP210x USB to UART Bridge" && info.manufacturer() == "IntegriSys S.A.")
 		{
 			comInfo = info;
 			qDebug() << "Name : " << comInfo.portName();
 			qDebug() << "Description : " << comInfo.description();
 			qDebug() << "serialNumber: " << comInfo.serialNumber();
 			qDebug() << "manufacturer:" << comInfo.manufacturer();
-			
+
 			break;
 		}
 		else
@@ -210,13 +237,13 @@ void MyClass::connectSlot()
 		com.clear();
 		timer_->stop();
 		//设置按键可用
-		ui.pushButton->setEnabled(true);
-		ui.bracketDownButton->setEnabled(true);
-		ui.bracketStopButton->setEnabled(true);
-		ui.bracketUpButton->setEnabled(true);
-		ui.turntableCloseButton->setEnabled(true);
-		ui.turntableOpenButton->setEnabled(true);
-		
+		ui.pushButton->setVisible(true);
+		ui.bracketDownButton->setVisible(true);
+		ui.bracketStopButton->setVisible(true);
+		ui.bracketUpButton->setVisible(true);
+		ui.turntableCloseButton->setVisible(true);
+		ui.turntableOpenButton->setVisible(true);
+
 		ui.LED->setStyleSheet("background-color:rgb(0, 255, 0);"); //LED灯变色
 
 		ui.actionConnect->setEnabled(false);
@@ -259,32 +286,28 @@ void MyClass::turntableOpenSlot()
 
 void MyClass::bracketUpSlot()
 {
-	
 	com.clear();
-	//auto HotKeyId = GlobalAddAtomA("MyHotKey") - 0xC000;
-
 
 	/*com.write(sendData.toHEX(bracketStop));
 	splashscreen::sleep(2000);
 	com.clear();*/
 	com.write(sendData.toHEX(bracketUp));
-/*	splashscreen::sleep(500);
-	ui.bracketUpButton->setEnabled(false);
-	ui.bracketDownButton->setEnabled(true);*/
+	/*	splashscreen::sleep(500);
+		ui.bracketUpButton->setEnabled(false);
+		ui.bracketDownButton->setEnabled(true);*/
 }
 
 void MyClass::bracketDownSlot()
 {
-	
 	com.clear();
-	
+
 	/*com.write(sendData.toHEX(bracketStop));
 	splashscreen::sleep(2000);
 	com.clear();*/
 	com.write(sendData.toHEX(bracketDown));
-/*	splashscreen::sleep(500);
-	ui.bracketUpButton->setEnabled(true);
-	ui.bracketDownButton->setEnabled(false);*/
+	/*	splashscreen::sleep(500);
+		ui.bracketUpButton->setEnabled(true);
+		ui.bracketDownButton->setEnabled(false);*/
 }
 
 void MyClass::bracketStopSlot()
@@ -292,14 +315,16 @@ void MyClass::bracketStopSlot()
 	com.clear();
 
 	com.write(sendData.toHEX(bracketStop));
-
-
 }
 
 
 void MyClass::QPushButtonSlot()
 {
-	QProcess* app = new QProcess(this);
-	app->start("cmd");
-	qDebug() << app;
+	/*	
+		 QProcess* app = new QProcess(this);
+		app->start("cmd");
+		qDebug() << app;
+	*/
+	this->aboutSlot();
+	//this->close();
 }
