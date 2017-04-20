@@ -5,5 +5,7 @@
         <file>resource/img/1234.png</file>
         <file>resource/img/2.gif</file>
         <file>resource/style/main.css</file>
+        <file>resource/img/logo.png</file>
+        <file>resource/img/1.png</file>
     </qresource>
 </RCC>

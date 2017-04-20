@@ -22,9 +22,21 @@ about::about(QWidget* parent)
 
 	auto x = this->width();
 	auto y = this->height();
-	ui.textBrowser->resize(x - 20, 380);
-	ui.textBrowser->move(10, 100);
+	ui.textBrowser->resize(x - 44, 390);
+	ui.textBrowser->move(22, 100);
 
+	//pixmap.load(":/MyClass/resource/img/logo.png");
+	pixmap.load(":/MyClass/resource/img/1.png");
+
+	pixmap.scaledToHeight(180);
+
+
+	ui.logo->move(22, 22);
+	ui.logo->resize(x - 44, 80);
+	//ui.logo->setStyleSheet("border:1px solid rgb(0,0,0)");
+	ui.logo->setPixmap(pixmap);
+	//ui.logo->setScaledContents(true);
+	qDebug() << ui.logo->size();
 
 	//	确定‘关闭按钮’在中间位置：
 

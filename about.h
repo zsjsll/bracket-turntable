@@ -7,6 +7,7 @@
 #include "animation.h"
 #include <QThread>
 #include <QDebug>
+#include <QPixmap>
 
 
 class about : public QDialog
@@ -22,6 +23,7 @@ public:
 private:
 	Ui::about ui;
 	animation* animation_ = new animation(this);
+	QPixmap pixmap;
 
 private slots:
 

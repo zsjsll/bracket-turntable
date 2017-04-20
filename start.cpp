@@ -17,7 +17,7 @@ start::start(RUN r, QObject* parent)
 		dir = R"(d:/Users/Administrator/Desktop/run.bat)";
 		break;
 	case RUN::CHANGE:
-		dir = ini->value("initialization/path", R"(bat/run.bat)").toString();
+		dir = ini->value("initialization/path", R"(bin/GVX.exe)").toString();
 		ini->setValue("initialization/path", dir);
 	default: break;
 	}
