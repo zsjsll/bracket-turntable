@@ -180,6 +180,9 @@
     <ClInclude Include="GeneratedFiles\ui_conn.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="resource\style\about_dialog.css">
@@ -188,5 +191,11 @@
     <None Include="resource\style\main.css">
       <Filter>Resource Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="bracket-turntable.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="resource\img\icon.ico" />
   </ItemGroup>
 </Project>

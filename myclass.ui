@@ -97,7 +97,7 @@
      <string>停止旋转</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="aboutButton">
     <property name="enabled">
      <bool>true</bool>
     </property>

@@ -61,7 +61,10 @@ private:
 	int height; /*窗口的高度*/
 	HWND p;
 	HWND fail_p;
+	HWND self;
 	bool tf;
+	RECT rect; //父窗口的大小
+	bool checked;//确认是否自动连接
 
 	QString turntableClose;
 	QString turntableOpen;
@@ -92,7 +95,7 @@ private slots:
 	void bracketStopSlot();
 
 
-	void QPushButtonSlot();
+	void aboutButtonSlot();
 	void movePoint();//窗口停靠
 
 

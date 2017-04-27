@@ -16,7 +16,7 @@ MyClass::MyClass(QWidget* parent)
 	Qt::WindowFlags flags = Qt::Dialog;
 	//flags |= Qt::WindowCloseButtonHint;
 	//flags |= Qt::WindowMinimizeButtonHint;
-	flags |= Qt::WindowStaysOnTopHint;//窗口顶置
+	//flags |= Qt::WindowStaysOnTopHint;//窗口顶置
 	//flags |= Qt::WindowCloseButtonHint;
 	flags |= Qt::FramelessWindowHint;
 	flags |= Qt::Tool;
@@ -44,7 +44,7 @@ MyClass::MyClass(QWidget* parent)
 
 
 	//this->connect(this->ui.pushButton, SIGNAL(clicked()), this, SLOT(QPushButtonSlot()));
-	this->connect(this->ui.pushButton, &QPushButton::clicked, this, &MyClass::QPushButtonSlot);
+	this->connect(this->ui.aboutButton, &QPushButton::clicked, this, &MyClass::aboutButtonSlot);
 
 	//	界面重写：
 	this->setWindowTitle("alpha v1.0");
@@ -55,7 +55,7 @@ MyClass::MyClass(QWidget* parent)
 	ui.statusBar->hide();
 	ui.menuBar->hide();
 	//this->resize(0, 0);
-	ui.pushButton->setVisible(false);
+	ui.aboutButton->setVisible(false);
 	ui.bracketDownButton->setVisible(false);
 	ui.bracketStopButton->setVisible(false);
 	ui.bracketUpButton->setVisible(false);
@@ -65,7 +65,7 @@ MyClass::MyClass(QWidget* parent)
 
 	//	信息保存QSettings
 	//自动连接
-	auto checked = ini->value("initialization/autoConnect", "true").toBool();
+	checked = ini->value("initialization/autoConnect", "true").toBool();
 	ini->setValue("initialization/autoConnect", checked);
 
 	//串口指令
@@ -84,13 +84,8 @@ MyClass::MyClass(QWidget* parent)
 	bracketStop = ini->value("setCom/bracketStop", "62 9D 54").toString();
 	ini->setValue("setCom/bracketStop", bracketStop);
 
-	//	自动连接
+
 	ui.actionAutoConnect->setChecked(checked);
-	if (ui.actionAutoConnect->isChecked())
-	{
-		timer_->start(1500);
-		this->connect(timer_, &QTimer::timeout, this, &MyClass::connectSlot);
-	}
 
 
 	//hotkey
@@ -117,6 +112,16 @@ void MyClass::windowShow()
 
 void MyClass::newShow()
 {
+	auto parentWindowIsExist = windowdocked::findParentWindow(p);
+	//	自动连接
+	if (ui.actionAutoConnect->isChecked() && parentWindowIsExist)
+	{
+		timer_->start(1500);
+
+		this->connect(timer_, &QTimer::timeout, this, &MyClass::connectSlot);
+	}
+
+
 	this->show();
 	//	窗口停靠
 	windowTimer->start(1);
@@ -125,24 +130,21 @@ void MyClass::newShow()
 
 void MyClass::disShow()
 {
+	com.close();
 	exit(0);
 }
 
 void MyClass::movePoint()
 {
-	//this->setFocus();
-
-	//this->show();
-
 	tf = windowdocked::findParentWindow(p);
 	if (tf)
 	{
-		RECT rect;
 		GetWindowRect(p, &rect);
-		//int w = rect.right - rect.left;
-		height = rect.bottom - rect.top;
-		leftTop = QRect(rect.left + 500, rect.top + 31, 600, 48);
-		this->setGeometry(leftTop);
+//		height = rect.bottom - rect.top;
+//		leftTop = QRect(rect.left + 500, rect.top + 31, 600, 48);
+//		this->setGeometry(leftTop);
+		self = FindWindowA(nullptr, "alpha v1.0");
+		SetWindowPos(self, HWND_TOPMOST, rect.left + 500, rect.top + 31, 600, 48, SWP_SHOWWINDOW);
 	}
 	else
 	{
@@ -154,7 +156,7 @@ void MyClass::movePoint()
 		com.clear();
 		com.write(sendData.toHEX(bracketStop));
 		splashscreen::sleep(100);
-
+		com.close();
 		exit(0);
 	}
 }
@@ -208,14 +210,13 @@ void MyClass::connectSlot()
 
 	foreach(const QSerialPortInfo &info, QSerialPortInfo::availablePorts())
 	{
-		if (info.description() == "Silicon Labs CP210x USB to UART Bridge" && info.manufacturer() == "IntegriSys S.A.")
+		if (info.description() == "Silicon Labs CP210x USB to UART Bridge" || info.manufacturer() == "IntegriSys S.A.")
 		{
 			comInfo = info;
 			qDebug() << "Name : " << comInfo.portName();
 			qDebug() << "Description : " << comInfo.description();
 			qDebug() << "serialNumber: " << comInfo.serialNumber();
 			qDebug() << "manufacturer:" << comInfo.manufacturer();
-
 			break;
 		}
 		else
@@ -223,9 +224,11 @@ void MyClass::connectSlot()
 			qDebug() << "没有这个串口";
 		}
 	}
+	
 	com.setPort(comInfo);
 	if (com.open(QIODevice::ReadWrite))
 	{
+		timer_->stop();
 		qDebug() << "com.open(QIODevice::ReadWrite)";
 		qDebug() << com.portName();
 		com.setBaudRate(QSerialPort::Baud9600);
@@ -235,9 +238,9 @@ void MyClass::connectSlot()
 		com.setFlowControl(QSerialPort::NoFlowControl);
 		com.clearError();
 		com.clear();
-		timer_->stop();
+
 		//设置按键可用
-		ui.pushButton->setVisible(true);
+		ui.aboutButton->setVisible(true);
 		ui.bracketDownButton->setVisible(true);
 		ui.bracketStopButton->setVisible(true);
 		ui.bracketUpButton->setVisible(true);
@@ -318,7 +321,7 @@ void MyClass::bracketStopSlot()
 }
 
 
-void MyClass::QPushButtonSlot()
+void MyClass::aboutButtonSlot()
 {
 	/*	
 		 QProcess* app = new QProcess(this);
@@ -328,3 +331,5 @@ void MyClass::QPushButtonSlot()
 	this->aboutSlot();
 	//this->close();
 }
+
+
