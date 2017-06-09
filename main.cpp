@@ -1,10 +1,21 @@
-#include "myclass.h"
+//#include "myclass.h"
 #include <QtWidgets/QApplication>
+#include "start.h"
 
-int main(int argc, char *argv[])
+
+
+int main(int argc, char* argv[])
 {
 	QApplication a(argc, argv);
-	MyClass w;
-	w.show();
+	start start(RUN::CHANGE);
+	
+	//s.run();
+	//qDebug() << run.isRunning();
+	
+	//MyClass w;
+	//w.hide();
+	
 	return a.exec();
+	
+
 }
